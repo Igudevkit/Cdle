@@ -1,1 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manual – Produtodle Clássico</title>
+
+  <style>
+    /* Estética consistente com o jogo */
+    :root{
+      --bg-dark:#1a3a2a;
+      --panel:#1e2d1a;
+      --border:#4a6d4e;
+      --accent:#38a169;
+      --text:#e0e0e0;
+    }
+    body{
+      margin:0; font-family:Arial, sans-serif;
+      background:var(--bg-dark); color:var(--text);
+      line-height:1.6; display:flex; flex-direction:column;
+      min-height:100vh;
+    }
+    header,footer{ text-align:center; padding:1.5rem 1rem; }
+    header h1{ margin:0; color:#a0e0a0; }
+    main{
+      flex:1;
+      max-width:800px;
+      width:90%;
+      margin:0 auto;
+      background:var(--panel);
+      border:1px solid var(--border);
+      border-radius:8px;
+      padding:2rem;
+      box-shadow:0 4px 6px rgba(0,0,0,.3);
+    }
+    h2{ color:var(--accent); margin-top:2rem; }
+    ol,ul{ margin-left:1.5rem; }
+    a{ color:var(--accent); }
+    code{ background:#263a28; padding:.15rem .35rem; border-radius:4px; }
+    .tag{ font-weight:bold; }
+    footer small{ color:#9ca3af; }
+  </style>
+</head>
+<body>
+
+  <!-- Cabeçalho -->
+  <header>
+    <h1>Manual do Jogo – Produtodle Clássico</h1>
+  </header>
+
+  <!-- Conteúdo principal -->
+  <main>
+    <section>
+      <h2>Objetivo</h2>
+      <p>
+        Descobrir qual é o <span class="tag">produto misterioso</span> da rodada em até
+        <strong>8 tentativas</strong>, usando pistas de semelhança exibidas na tabela.
+      </p>
+    </section>
+
+    <section>
+      <h2>Como Jogar</h2>
+      <ol>
+        <li>Digite parte do nome na <span class="tag">barra de pesquisa</span>. Sugestões aparecerão automaticamente.</li>
+        <li>Pressione <kbd>Enter</kbd> ou clique em <span class="tag">Palpitar</span> para registrar o palpite.</li>
+        <li>Observe as cores retornadas na tabela:
+          <ul>
+            <li><span style="color:#16a34a;font-weight:bold;">Verde</span> – valor exato.</li>
+            <li><span style="color:#eab308;font-weight:bold;">Amarelo</span> – parcialmente correto.</li>
+            <li><span style="color:#ef4444;font-weight:bold;">Vermelho</span> – totalmente incorreto.</li>
+            <li>Setas <span style="font-size:1.1rem;">⬆️⬇️</span> indicam se o valor deve ser maior ou menor.</li>
+          </ul>
+        </li>
+        <li>Use as pistas para afinar seus palpites.</li>
+        <li>Acertou todos os campos? Você vence!</li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>Campos Avaliados</h2>
+      <table>
+        <tr><th>Campo</th><th>Pista</th></tr>
+        <tr><td>Tipo</td><td>Comparação de listas (<em>Controlador</em>, <em>Software</em>…)</td></tr>
+        <tr><td>Capacidade de Usuários</td><td>Maior/Menor (setas) ou exato</td></tr>
+        <tr><td>Autenticação</td><td>Comparação de listas</td></tr>
+        <tr><td>Comunicação</td><td>Exato ou nulo</td></tr>
+        <tr><td>Grau IP</td><td>Parcial se primeiros dígitos coincidem (ex.: IP6x)</td></tr>
+        <tr><td>Frequência (MHz)</td><td>±10 = parcial, setas fora dessa faixa</td></tr>
+      </table>
+    </section>
+
+    <section>
+      <h2>Atalhos Úteis</h2>
+      <ul>
+        <li><kbd>Enter</kbd> – confirma palpite imediatamente.</li>
+        <li><kbd>Ctrl</kbd> + <kbd>L</kbd> / <kbd>Cmd</kbd> + <kbd>L</kbd> – seleciona a barra de pesquisa.</li>
+        <li><kbd>N</kbd> – inicia novo jogo (equivalente a clicar em <span class="tag">Novo Jogo</span>).</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Dicas Estratégicas</h2>
+      <ul>
+        <li>Comece por um <strong>produto genérico</strong> (ex.: “SS 1530 MF W”) para obter várias pistas de
+          autenticação e comunicação.</li>
+        <li>Ajuste a <em>Capacidade</em> rapidamente seguindo as setas para cima/baixo.</li>
+        <li>Lembre‑se de que alguns produtos possuem múltiplos <em>Tipos</em>; observe bem as combinações.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Créditos</h2>
+      <p>
+        Desenvolvido por <em>Seu Nome</em>.<br>
+        Ideia inspirada em <a href="https://www.powerlanguage.co.uk/wordle/">Wordle</a> e adaptada para catálogo de produtos.
+      </p>
+    </section>
+  </main>
+
+  <!-- Rodapé -->
+  <footer>
+    <small>&copy; 2025 – Produtodle. Todos os direitos reservados.</small>
+  </footer>
+
+</body>
+</html>
 
