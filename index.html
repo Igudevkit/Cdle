@@ -258,17 +258,88 @@
     opacity: 0;
   }
 }
+.popup {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup-content {
+  background: #2a4836;
+  color: white;
+  padding: 2rem;
+  border-radius: 16px;
+  text-align: center;
+  position: relative;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+}
+
+.popup-content input {
+  margin-top: 1rem;
+  padding: 0.5rem;
+  border-radius: 8px;
+  border: none;
+  width: 100%;
+}
+
+.popup-content button {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background: #38a169;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.close-btn {
+  all: unset;
+  position: absolute;
+  top: 1px;
+  right: 12px;
+  background: transparent;
+  color: white;
+  font-size: 0.9rem;
+  width: 20px;
+  height: 20px;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+}
+
+.hidden {
+  display: none;
+}
   </style>
 </head>
 
 <body>
+  <div id="gamePopup" class="popup hidden">
+    <div class="popup-content" id="popupContent">
+      <button class="close-btn" onclick="closePopup()">✖</button>
+      <div id="popupMessage"></div>
+      <div id="winnerExtras" class="hidden">
+        <input type="text" id="winnerName" placeholder="Seu nome..." />
+        <button onclick="exportResult()">Exportar Resultado</button>
+      </div>
+    </div>
+  </div>
+  
   <h1>Spot by Specs</h1>
 
   <button id="infoBtn" class="info-btn">
     ⓘ
   </button>
   <div id="infoContent" class="info-content">
-    <p>Versão Alpha 0.0.7</p>
+    <p>Versão Alpha 0.0.8</p>
     <p>Desenvolvido por:</p>
     <p>Igor Rodrigues da Silva</p>
     <p>igor.rodrigues@intelbras.com.br</p>
@@ -305,7 +376,7 @@
     </thead>
     <tbody></tbody>
   </table>
-
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
   <script>
 const audioVitoria = new Audio('som/Vitoria.mp3');
 const audioDerrota = new Audio('som/perdeu.mp3');
@@ -1004,19 +1075,78 @@ function render(g, r) {
   if (win(res)) {
   audioVitoria.play();
   emojiRain(["🎉", "🥳", "🏆", "🎊"]);
-alert(`Parabéns! Você acertou em ${tries} tentativa(s).`);
-  gameOver = true;
+  showPopup(true, tries, target.nome);
   sb.disabled = true;
   document.getElementById("guessBtn").disabled = true;
 } else if (tries === MAX_TRIES) {
   audioDerrota.play();
   emojiRain(["💀", "😢", "☠️", "👎"]);
-  alert(`Fim de jogo! O produto era ${target.nome}.`);
-  gameOver = true;
+  showPopup(false, tries, target.nome);
   sb.disabled = true;
   document.getElementById("guessBtn").disabled = true;
 }
+
 }
+
+function showPopup(won, tries, product) {
+  const popup = document.getElementById("gamePopup");
+  const message = document.getElementById("popupMessage");
+  const winnerExtras = document.getElementById("winnerExtras");
+
+  if (won) {
+    message.innerHTML = `🎉 <strong>Você ganhou!</strong><br>O produto era <strong>${product}</strong><br>Você acertou em <strong>${tries}</strong> tentativa(s)!`;
+    winnerExtras.classList.remove("hidden");
+  } else {
+    message.innerHTML = `💀 <strong>Você perdeu!</strong><br>O produto era <strong>${product}</strong>`;
+    winnerExtras.classList.add("hidden");
+  }
+
+  popup.classList.remove("hidden");
+}
+
+function closePopup() {
+  document.getElementById("gamePopup").classList.add("hidden");
+}
+
+function exportResult() {
+  const name = document.getElementById("winnerName").value.trim() || "Jogador";
+  const produto = target.nome;
+  const tentativas = tries;
+
+  const canvas = document.createElement("canvas");
+  const ctx = canvas.getContext("2d");
+
+  canvas.width = 600;
+  canvas.height = 300;
+
+  // Fundo
+  ctx.fillStyle = "#1a3a2a";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  // Título
+  ctx.fillStyle = "#a0e0a0";
+  ctx.font = "bold 24px Arial";
+  ctx.fillText(`Parabéns ${name}, você ganhou!`, 40, 60);
+
+  // Produto
+  ctx.fillStyle = "#ffffff";
+  ctx.font = "20px Arial";
+  ctx.fillText(`O produto era: ${produto}`, 40, 120);
+
+  // Tentativas
+  ctx.fillText(`Você acertou em ${tentativas} tentativa(s)!`, 40, 160);
+
+  // Emoji de comemoração
+  ctx.font = "32px Arial";
+  ctx.fillText("🎉🎉🎉", 40, 220);
+
+  // Baixar
+  const link = document.createElement("a");
+  link.download = `resultado-${name}.png`;
+  link.href = canvas.toDataURL();
+  link.click();
+}
+
 
     function play() {
       document.getElementById("guessBtn").click();
