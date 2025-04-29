@@ -1,24 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Produtodle</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Spot by Specs</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       font-family: Arial, sans-serif;
       background: #1a3a2a;
       color: #e0e0e0;
       margin: 0;
-      padding: 0;
+      padding: 20px;
       display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
-      height: 100vh;
+      min-height: 100vh;
       transition: all 0.3s ease;
     }
 
     h1 {
-      margin: 0 0 2rem;
+      margin: 1rem 0;
       font-size: 2.5rem;
       color: #a0e0a0;
       text-align: center;
@@ -27,9 +31,12 @@
 
     #controls {
       display: flex;
-      flex-wrap: wrap;
+      justify-content: space-between;  /* Modificado para alinhar os botões à direita */
+      align-items: center;
       gap: 1rem;
       margin-bottom: 2rem;
+      width: 100%;
+      max-width: 700px;
     }
 
     button {
@@ -41,6 +48,7 @@
       font-size: 1.1rem;
       cursor: pointer;
       transition: transform 0.2s;
+      min-width: 120px;
     }
 
     button:focus {
@@ -49,7 +57,7 @@
     }
 
     .search-box {
-      width: 300px;
+      flex: 1;  /* Isso faz com que a barra de busca ocupe o espaço disponível */
       position: relative;
       background: #2d5339;
       border: 1px solid #4a6d4e;
@@ -59,7 +67,7 @@
     }
 
     .search-box input {
-      width: 95%;
+      width: 100%;
       border: none;
       border-radius: 4px;
       padding: 0.5rem;
@@ -85,7 +93,7 @@
       background: #1e2d1a;
       border: 1px solid #4a6d4e;
       border-radius: 4px;
-      max-height: 120px;
+      max-height: 150px;
       overflow-y: auto;
       z-index: 100;
       display: none;
@@ -103,17 +111,18 @@
     }
 
     table {
-      width: 95%;
+      width: 100%;
       max-width: 1100px;
       border-collapse: collapse;
       margin-top: 2rem;
       background: #1e2d1a;
       border-radius: 8px;
       overflow: hidden;
+      font-size: 0.9rem;
     }
 
     th, td {
-      padding: 1rem;
+      padding: 0.75rem;
       text-align: center;
       border-bottom: 1px solid #4a6d4e;
     }
@@ -121,6 +130,7 @@
     th {
       background: #2a4836;
       color: #a0e0a0;
+      font-size: 1rem;
     }
 
     td {
@@ -132,7 +142,6 @@
     td.exact { background: #16a34a; color: #fff; }
     td.partial { background: #eab308; color: #fff; }
     td.none { background: #ef4444; color: #fff; }
-
     .up::after { content: "⬆️"; animation: bounceUp 0.5s infinite; }
     .down::after { content: "⬇️"; animation: bounceDown 0.5s infinite; }
 
@@ -159,18 +168,105 @@
     .shadow {
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
     }
+
+    .info-btn {
+      all: unset; 
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      width: 20px;
+      height: 20px;
+      background-color: #38a169;
+      color: white;
+      border: none;
+      border-radius: 100%;
+      font-size: 0.8rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+      z-index: 999;
+      transition: background-color 0.3s;
+    }
+
+    .info-btn:hover {
+      background-color: #2f7a56;
+    }
+
+    .info-content {
+      display: none;
+      position: fixed;
+      bottom: 60px;
+      right: 10px;
+      background-color: rgba(0, 0, 0, 0.7);
+      color: #fff;
+      padding: 10px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+      font-size: 0.8rem;
+      z-index: 998;
+      max-width: 200px;
+    }
+
+    .info-content.show {
+      display: block;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2rem;
+      }
+
+      button {
+        font-size: 1rem;
+        padding: 0.5rem 1rem;
+      }
+
+      table {
+        font-size: 0.75rem;
+      }
+
+      th, td {
+        padding: 0.5rem;
+      }
+    }
+    #devContent input {
+  width: 100%;
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+  background-color: #2a4836;
+  color: white;
+  font-size: 0.9rem;
+}
   </style>
 </head>
 
 <body>
-  <h1>Produtodle Clássico</h1>
+  <h1>Spot by Specs</h1>
+
+  <button id="infoBtn" class="info-btn">
+    ⓘ
+  </button>
+  <div id="infoContent" class="info-content">
+    <p>Versão Alpha 0.0.6</p>
+    <p>Desenvolvido por:</p>
+    <p>Igor Rodrigues da Silva</p>
+    <p>igor.rodrigues@intelbras.com.br</p>
+  </div>
+
+  <button id="devBtn" class="info-btn" style="right: 40px;">⚙</button>
+<div id="devContent" class="info-content">
+  <input type="text" id="devInput" placeholder="Senha dev..." />
+</div>
 
   <div id="controls" class="shadow">
+    <button id="guessBtn">Palpitar</button>
     <div class="search-box">
       <input id="searchBox" type="text" placeholder="Digite o produto..." autocomplete="off">
       <div id="suggestions" class="suggestions"></div>
     </div>
-    <button id="guessBtn">Palpitar</button>
     <button id="newGameBtn">Novo Jogo</button>
     <button id="manualBtn" onclick="window.open('manual.html','_blank')">Manual</button>
   </div>
@@ -734,6 +830,41 @@ rede: ["N/A"],
 fornecedor: "Intelbras"
 }
 ];
+const infoBtn = document.getElementById("infoBtn");
+const infoContent = document.getElementById("infoContent");
+
+// Exibe o modal quando o mouse entra sobre o botão
+infoBtn.addEventListener("mouseenter", () => {
+  infoContent.classList.add("show");
+});
+
+// Oculta o modal quando o mouse sai do botão
+infoBtn.addEventListener("mouseleave", () => {
+  infoContent.classList.remove("show");
+});
+
+const devBtn = document.getElementById("devBtn");
+const devContent = document.getElementById("devContent");
+const devInput = document.getElementById("devInput");
+
+devBtn.addEventListener("click", () => {
+  devContent.classList.toggle("show");
+  if (devContent.classList.contains("show")) {
+    devInput.focus();
+  }
+});
+
+devInput.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    if (devInput.value.trim().toLowerCase() === "eusoudev") {
+      alert(`Produto secreto: ${target.nome}`);
+    } else {
+      alert("Código incorreto!");
+    }
+    devInput.value = "";
+    devContent.classList.remove("show");
+  }
+});
 
     const MAX_TRIES = 8;
     const MAX_SUG = 3;
@@ -820,9 +951,10 @@ function render(g, r) {
     <td class="${r.freq}">${toArr(g.freq).join(", ")}</td>
     <td class="${r.rede}">${toArr(g.rede).join(", ")}</td>
     <td class="${r.fornecedor}">${g.fornecedor}</td>`;
-  tbod.appendChild(tr);
+  
+  // Insere a nova linha no início da tabela
+  tbod.insertBefore(tr, tbod.firstChild);
 }
-
     const win = r => Object.values(r).every(v => v === "exact");
 
     document.getElementById("guessBtn").addEventListener("click", () => {
@@ -840,6 +972,7 @@ function render(g, r) {
       const res = evaluate(guess);
       render(guess, res);
       tries++;
+      sb.value = "";  // Limpa o campo de pesquisa após o palpite
       if (win(res)) {
         alert(`Parabéns! Você acertou em ${tries} tentativa(s).`);
       } else if (tries === MAX_TRIES) {
