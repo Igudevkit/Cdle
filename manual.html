@@ -1,118 +1,155 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Manual – Produtodle Clássico</title>
-
+  <title>Manual de Jogo - Produtodle Clássico</title>
   <style>
-    /* Estética consistente com o jogo */
-    :root{
-      --bg-dark:#1a3a2a;
-      --panel:#1e2d1a;
-      --border:#4a6d4e;
-      --accent:#38a169;
-      --text:#e0e0e0;
+    body {
+      font-family: 'Poppins', Arial, sans-serif;
+      background: linear-gradient(135deg, #1a3a2a, #264d36);
+      color: #e0f2e9;
+      margin: 0;
+      padding: 2rem;
+      animation: fadeIn 1s ease;
     }
-    body{
-      margin:0; font-family:Arial, sans-serif;
-      background:var(--bg-dark); color:var(--text);
-      line-height:1.6; display:flex; flex-direction:column;
-      min-height:100vh;
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
-    header,footer{ text-align:center; padding:1.5rem 1rem; }
-    header h1{ margin:0; color:#a0e0a0; }
-    main{
-      flex:1;
-      max-width:800px;
-      width:90%;
-      margin:0 auto;
-      background:var(--panel);
-      border:1px solid var(--border);
-      border-radius:8px;
-      padding:2rem;
-      box-shadow:0 4px 6px rgba(0,0,0,.3);
+    h1 {
+      text-align: center;
+      color: #a0e0a0;
+      margin-bottom: 2rem;
+      font-size: 2.5rem;
     }
-    h2{ color:var(--accent); margin-top:2rem; }
-    ol,ul{ margin-left:1.5rem; }
-    a{ color:var(--accent); }
-    code{ background:#263a28; padding:.15rem .35rem; border-radius:4px; }
-    .tag{ font-weight:bold; }
-    footer small{ color:#9ca3af; }
+    .section {
+      background: #2d4d39;
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+      transition: transform 0.3s ease;
+    }
+    .section:hover {
+      transform: translateY(-5px);
+    }
+    h2 {
+      color: #90d290;
+      margin-top: 0;
+      font-size: 1.8rem;
+    }
+    p, li {
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+    ul {
+      margin-left: 1.5rem;
+    }
+    strong {
+      color: #88e0a0;
+    }
+    .examples {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .example {
+      background: #3a5f48;
+      border-radius: 8px;
+      padding: 1rem;
+      flex: 1;
+      min-width: 200px;
+      text-align: center;
+    }
+    .example span {
+      display: inline-block;
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+    a.button {
+      display: block;
+      margin: 2rem auto 0;
+      padding: 0.75rem 2rem;
+      background: #38a169;
+      color: #fff;
+      border-radius: 30px;
+      text-align: center;
+      text-decoration: none;
+      font-size: 1.2rem;
+      font-weight: bold;
+      width: fit-content;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+    a.button:hover {
+      background: #2f855a;
+      transform: scale(1.05);
+    }
   </style>
 </head>
 <body>
 
-  <!-- Cabeçalho -->
-  <header>
-    <h1>Manual do Jogo – Produtodle Clássico</h1>
-  </header>
+  <h1>Manual de Jogo<br>Produtodle Clássico</h1>
 
-  <!-- Conteúdo principal -->
-  <main>
-    <section>
-      <h2>Objetivo</h2>
-      <p>
-        Descobrir qual é o <span class="tag">produto misterioso</span> da rodada em até
-        <strong>8 tentativas</strong>, usando pistas de semelhança exibidas na tabela.
-      </p>
-    </section>
+  <div class="section">
+    <h2>🎯 Objetivo</h2>
+    <p>Descubra o produto secreto em até <strong>8 tentativas</strong>, usando as dicas para guiar seus palpites.</p>
+  </div>
 
-    <section>
-      <h2>Como Jogar</h2>
-      <ol>
-        <li>Digite parte do nome na <span class="tag">barra de pesquisa</span>. Sugestões aparecerão automaticamente.</li>
-        <li>Pressione <kbd>Enter</kbd> ou clique em <span class="tag">Palpitar</span> para registrar o palpite.</li>
-        <li>Observe as cores retornadas na tabela:
-          <ul>
-            <li><span style="color:#16a34a;font-weight:bold;">Verde</span> – valor exato.</li>
-            <li><span style="color:#eab308;font-weight:bold;">Amarelo</span> – parcialmente correto.</li>
-            <li><span style="color:#ef4444;font-weight:bold;">Vermelho</span> – totalmente incorreto.</li>
-            <li>Setas <span style="font-size:1.1rem;">⬆️⬇️</span> indicam se o valor deve ser maior ou menor.</li>
-          </ul>
-        </li>
-        <li>Use as pistas para afinar seus palpites.</li>
-        <li>Acertou todos os campos? Você vence!</li>
-      </ol>
-    </section>
+  <div class="section">
+    <h2>🕹️ Como Jogar</h2>
+    <ul>
+      <li>Digite o nome de um produto no campo de palpite.</li>
+      <li>Pressione <strong>Enter</strong> ou clique em <strong>Palpitar</strong>.</li>
+      <li>Observe as dicas fornecidas e ajuste seus próximos palpites.</li>
+      <li>Você tem <strong>apenas 8 tentativas</strong> para acertar!</li>
+    </ul>
+  </div>
 
-    <section>
-      <h2>Campos Avaliados</h2>
-      <table>
-        <tr><th>Campo</th><th>Pista</th></tr>
-        <tr><td>Tipo</td><td>Comparação de listas (<em>Controlador</em>, <em>Software</em>…)</td></tr>
-        <tr><td>Capacidade de Usuários</td><td>Maior/Menor (setas) ou exato</td></tr>
-        <tr><td>Autenticação</td><td>Comparação de listas</td></tr>
-        <tr><td>Comunicação</td><td>Exato ou nulo</td></tr>
-        <tr><td>Grau IP</td><td>Parcial se primeiros dígitos coincidem (ex.: IP6x)</td></tr>
-        <tr><td>Frequência (MHz)</td><td>±10 = parcial, setas fora dessa faixa</td></tr>
-      </table>
-    </section>
+  <div class="section">
+    <h2>🔎 Interpretação das Dicas</h2>
+    <div class="examples">
+      <div class="example">
+        <span style="color: #38a169;">🟩</span>
+        <p><strong>Verde:</strong><br>Característica correta</p>
+      </div>
+      <div class="example">
+        <span style="color: #ecc94b;">🟨</span>
+        <p><strong>Amarelo:</strong><br>Parcialmente correta</p>
+      </div>
+      <div class="example">
+        <span style="color: #e53e3e;">🟥</span>
+        <p><strong>Vermelho:</strong><br>Característica errada</p>
+      </div>
+      <div class="example">
+        <span>⬆️</span>
+        <p><strong>Seta para cima:</strong><br>Seu palpite está abaixo</p>
+      </div>
+      <div class="example">
+        <span>⬇️</span>
+        <p><strong>Seta para baixo:</strong><br>Seu palpite está acima</p>
+      </div>
+    </div>
+  </div>
 
-    <section>
-      <h2>Dicas Estratégicas</h2>
-      <ul>
-        <li>Comece por um <strong>produto genérico</strong> (ex.: “SS 1530 MF W”) para obter várias pistas de
-          autenticação e comunicação.</li>
-        <li>Ajuste a <em>Capacidade</em> rapidamente seguindo as setas para cima/baixo.</li>
-        <li>Lembre‑se de que alguns produtos possuem múltiplos <em>Tipos</em>; observe bem as combinações.</li>
-      </ul>
-    </section>
+  <div class="section">
+    <h2>⚙️ Botões Disponíveis</h2>
+    <ul>
+      <li><strong>Palpitar:</strong> Envia o palpite atual para análise.</li>
+      <li><strong>Novo Jogo:</strong> Reinicia a partida com um novo produto secreto.</li>
+      <li><strong>Manual:</strong> Você está aqui! 😉</li>
+    </ul>
+  </div>
 
-    <section>
-      <h2>Créditos</h2>
-      <p>
-        Desenvolvido por <em>Igor Rodrigues da Silva</em>.<br>
-        Ideia inspirada em <a href="https://www.powerlanguage.co.uk/wordle/">Wordle</a> e adaptada para catálogo de produtos.
-      </p>
-    </section>
-  </main>
+  <div class="section">
+    <h2>💡 Dicas Extras</h2>
+    <ul>
+      <li>Use as sugestões automáticas ao digitar para facilitar seus palpites.</li>
+      <li>Observe o tipo de produto e o fornecedor para refinar suas tentativas.</li>
+      <li>Planeje seus palpites com base nas dicas para aproveitar bem suas 8 chances.</li>
+    </ul>
+  </div>
 
-  <!-- Rodapé -->
-  <footer>
-    <small>&copy; 2025 – Produtodle. Todos os direitos reservados.</small>
-  </footer>
+  <a href="index.html" class="button">Voltar ao Jogo</a>
 
 </body>
 </html>
-
