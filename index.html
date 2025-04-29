@@ -922,6 +922,42 @@ rede: ["N/A"],
 fornecedor: "Intelbras"
 }
 ];
+function saveGameState() {
+  const state = {
+    target: target?.nome,
+    tries,
+    guesses: JSON.stringify(Array.from(tbod.children).map(tr => tr.innerHTML)),
+    gameOver
+  };
+  localStorage.setItem("spotBySpecsState", JSON.stringify(state));
+}
+
+function loadGameState() {
+  const stateStr = localStorage.getItem("spotBySpecsState");
+  if (!stateStr) return;
+
+  const state = JSON.parse(stateStr);
+  tries = state.tries || 0;
+  gameOver = state.gameOver || false;
+  target = PRODUCTS.find(p => p.nome === state.target) || PRODUCTS[Math.floor(Math.random() * PRODUCTS.length)];
+  
+  // Restaura a tabela
+  tbod.innerHTML = "";
+  if (state.guesses) {
+    const rows = JSON.parse(state.guesses);
+    rows.forEach(html => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = html;
+      tbod.appendChild(tr);
+    });
+  }
+
+  if (gameOver) {
+    sb.disabled = true;
+    document.getElementById("guessBtn").disabled = true;
+  }
+}
+
 const infoBtn = document.getElementById("infoBtn");
 const infoContent = document.getElementById("infoContent");
 
@@ -986,6 +1022,7 @@ function reset() {
   gameOver = false;    // <-- importante
   sb.focus();
   document.getElementById("guessBtn").disabled = false;
+  localStorage.removeItem("spotBySpecsState");
 }
 
     function getSug(q) {
@@ -1064,6 +1101,7 @@ function render(g, r) {
     document.getElementById("newGameBtn").addEventListener("click", reset);
 
     function evaluateAndRender(guess) {
+      saveGameState();
       audioPalpite.play();
   if (tries >= MAX_TRIES || gameOver) return;
 
@@ -1166,10 +1204,8 @@ function exportResult() {
     }, 4000);
   }
 }
-
+  window.onload = loadGameState;
     reset();
-    sb.disabled = false;
-document.getElementById("guessBtn").disabled = false;
   </script>
 </body>
 </html>
