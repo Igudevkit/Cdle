@@ -240,6 +240,24 @@
   color: white;
   font-size: 0.9rem;
 }
+.emoji {
+  position: fixed;
+  font-size: 2rem;
+  pointer-events: none;
+  z-index: 1000;
+  animation: fall 3s linear forwards;
+}
+
+@keyframes fall {
+  0% {
+    transform: translateY(-100px) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
   </style>
 </head>
 
@@ -250,7 +268,7 @@
     ⓘ
   </button>
   <div id="infoContent" class="info-content">
-    <p>Versão Alpha 0.0.6</p>
+    <p>Versão Alpha 0.0.7</p>
     <p>Desenvolvido por:</p>
     <p>Igor Rodrigues da Silva</p>
     <p>igor.rodrigues@intelbras.com.br</p>
@@ -289,6 +307,9 @@
   </table>
 
   <script>
+const audioVitoria = new Audio('som/Vitoria.mp3');
+const audioDerrota = new Audio('som/perdeu.mp3');
+const audioPalpite = new Audio('som/pp.mp3');
             const PRODUCTS = [
             {
                 nome: "SS 1530 MF W",
@@ -866,9 +887,10 @@ devInput.addEventListener("keydown", (e) => {
   }
 });
 
-    const MAX_TRIES = 8;
+    const MAX_TRIES = 10;
     const MAX_SUG = 3;
     let target, tries;
+    let gameOver = false;
 
     const sb = document.getElementById("searchBox");
     const sugC = document.getElementById("suggestions");
@@ -883,14 +905,17 @@ devInput.addEventListener("keydown", (e) => {
   }
 });
 
-    function reset() {
-      tbod.innerHTML = "";
-      tries = 0;
-      target = PRODUCTS[Math.floor(Math.random() * PRODUCTS.length)];
-      sb.value = "";
-      hideSug();
-      sb.focus();
-    }
+function reset() {
+  tbod.innerHTML = "";
+  tries = 0;
+  target = PRODUCTS[Math.floor(Math.random() * PRODUCTS.length)];
+  sb.value = "";
+  hideSug();
+  sb.disabled = false; // <-- importante
+  gameOver = false;    // <-- importante
+  sb.focus();
+  document.getElementById("guessBtn").disabled = false;
+}
 
     function getSug(q) {
       if (!q.trim()) return [];
@@ -968,23 +993,53 @@ function render(g, r) {
     document.getElementById("newGameBtn").addEventListener("click", reset);
 
     function evaluateAndRender(guess) {
-      if (tries >= MAX_TRIES) return;
-      const res = evaluate(guess);
-      render(guess, res);
-      tries++;
-      sb.value = "";  // Limpa o campo de pesquisa após o palpite
-      if (win(res)) {
-        alert(`Parabéns! Você acertou em ${tries} tentativa(s).`);
-      } else if (tries === MAX_TRIES) {
-        alert(`Fim de jogo! O produto era ${target.nome}.`);
-      }
-    }
+      audioPalpite.play();
+  if (tries >= MAX_TRIES || gameOver) return;
+
+  const res = evaluate(guess);
+  render(guess, res);
+  tries++;
+  sb.value = "";  // Limpa o campo de pesquisa
+
+  if (win(res)) {
+  audioVitoria.play();
+  emojiRain(["🎉", "🥳", "🏆", "🎊"]);
+alert(`Parabéns! Você acertou em ${tries} tentativa(s).`);
+  gameOver = true;
+  sb.disabled = true;
+  document.getElementById("guessBtn").disabled = true;
+} else if (tries === MAX_TRIES) {
+  audioDerrota.play();
+  emojiRain(["💀", "😢", "☠️", "👎"]);
+  alert(`Fim de jogo! O produto era ${target.nome}.`);
+  gameOver = true;
+  sb.disabled = true;
+  document.getElementById("guessBtn").disabled = true;
+}
+}
 
     function play() {
       document.getElementById("guessBtn").click();
     }
 
+    function emojiRain(emojis) {
+  for (let i = 0; i < 30; i++) {
+    const emoji = document.createElement("div");
+    emoji.classList.add("emoji");
+    emoji.style.left = `${Math.random() * 100}vw`;
+    emoji.style.animationDuration = `${2 + Math.random() * 2}s`;
+    emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    document.body.appendChild(emoji);
+
+    setTimeout(() => {
+      emoji.remove();
+    }, 4000);
+  }
+}
+
     reset();
+    sb.disabled = false;
+document.getElementById("guessBtn").disabled = false;
   </script>
 </body>
 </html>
