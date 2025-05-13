@@ -1,1 +1,545 @@
+<!DOCTYPE html> <!-- Declara o tipo do documento como HTML5 -->
+<html> <!-- Início do documento HTML -->
+<head> <!-- Cabeçalho da página, contém metadados e estilos -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <!-- Responsividade em dispositivos móveis -->
+  <title>Spot by Specs</title> <!-- Título da aba do navegador -->
+
+  <style> <!-- Início do bloco de estilos CSS -->
+    * {
+      box-sizing: border-box; /* Inclui padding e border no cálculo do tamanho */
+    }
+
+    body {
+      font-family: Arial, sans-serif; /* Define a fonte padrão */
+      background: #1a3a2a; /* Cor de fundo escura */
+      color: #e0e0e0; /* Cor do texto */
+      margin: 0; /* Remove margens */
+      padding: 20px; /* Espaçamento interno */
+      display: flex; /* Usa flexbox */
+      flex-direction: column; /* Empilha os elementos verticalmente */
+      align-items: center; /* Centraliza os filhos horizontalmente */
+      min-height: 100vh; /* Altura mínima da tela */
+      transition: all 0.3s ease; /* Animações suaves para alterações de estilo */
+    }
+
+    h1 {
+      margin: 1rem 0; /* Espaço acima e abaixo do título */
+      font-size: 2.5rem; /* Tamanho da fonte grande */
+      color: #a0e0a0; /* Cor verde clara */
+      text-align: center; /* Centraliza o texto */
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6); /* Sombra no texto */
+    }
+
+    #controls {
+      display: flex; /* Layout flexível */
+      justify-content: space-between; /* Espaço igual entre os itens */
+      align-items: center; /* Alinha os itens verticalmente */
+      gap: 1rem; /* Espaçamento entre os itens */
+      margin-bottom: 2rem; /* Espaço inferior */
+      width: 100%; /* Largura total */
+      max-width: 700px; /* Largura máxima */
+    }
+
+    button {
+      background: #38a169; /* Cor de fundo verde */
+      color: #fff; /* Cor do texto branco */
+      border: none; /* Remove bordas */
+      border-radius: 8px; /* Bordas arredondadas */
+      padding: 0.75rem 1.5rem; /* Espaçamento interno */
+      font-size: 1.1rem; /* Tamanho da fonte */
+      cursor: pointer; /* Cursor de clique */
+      transition: transform 0.2s; /* Animação ao passar o mouse */
+      min-width: 120px; /* Largura mínima */
+    }
+
+    button:focus {
+      outline: none; /* Remove contorno padrão ao focar */
+      transform: scale(1.05); /* Aumenta levemente o botão */
+    }
+
+    .search-box {
+      flex: 1; /* Ocupa o máximo de espaço disponível */
+      position: relative; /* Permite posicionamento absoluto de elementos filhos */
+      background: #2d5339; /* Cor de fundo da busca */
+      border: 1px solid #4a6d4e; /* Borda levemente destacada */
+      border-radius: 8px; /* Arredondamento */
+      padding: 0.5rem; /* Espaço interno */
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4); /* Sombra discreta */
+    }
+
+    .search-box input {
+      width: 100%; /* Ocupa toda a largura */
+      border: none; /* Sem borda */
+      border-radius: 4px; /* Leve arredondamento */
+      padding: 0.5rem; /* Espaço interno */
+      background: #1e2d1a; /* Fundo escuro */
+      color: #e0e0e0; /* Cor do texto */
+      font-size: 1rem; /* Tamanho padrão de texto */
+    }
+
+    .search-box input::placeholder {
+      color: #a0b29f; /* Cor do texto do placeholder */
+    }
+
+    .search-box input:focus {
+      outline: none; /* Remove a borda de foco padrão */
+      box-shadow: 0 0 4px #38a169; /* Destaque verde ao focar */
+    }
+
+    .suggestions {
+      position: absolute; /* Posiciona abaixo do input */
+      top: 100%; /* Imediatamente abaixo do campo de busca */
+      left: 0; right: 0; /* Estica horizontalmente */
+      background: #1e2d1a; /* Cor de fundo escura */
+      border: 1px solid #4a6d4e; /* Borda com cor similar à busca */
+      border-radius: 4px; /* Arredondamento */
+      max-height: 150px; /* Altura máxima da lista */
+      overflow-y: auto; /* Permite rolagem vertical */
+      z-index: 100; /* Coloca acima de outros elementos */
+      display: none; /* Oculta por padrão */
+    }
+
+    .suggestion-item {
+      padding: 0.5rem; /* Espaçamento interno */
+      cursor: pointer; /* Muda o cursor ao passar */
+      color: #e0e0e0; /* Cor do texto */
+    }
+
+    .suggestion-item:hover {
+      background: #38a169; /* Fundo verde ao passar o mouse */
+      color: #fff; /* Texto branco */
+    }
+    
+    .info-content {
+      background: #2d5339; /* Cor de fundo escura para a área de detalhes */
+      padding: 1rem; /* Espaço interno */
+      border-radius: 8px; /* Arredondamento */
+      margin-top: 0.5rem; /* Espaço acima do bloco */
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3); /* Sombra */
+      transform: scaleY(0); /* Inicialmente encolhido verticalmente */
+      transform-origin: top; /* Começa a expansão do topo */
+      transition: transform 0.3s ease; /* Transição suave na expansão */
+      display: none; /* Oculto inicialmente */
+    }
+
+    .info-content.show {
+      display: block; /* Exibe o bloco quando a classe 'show' está presente */
+      transform: scaleY(1); /* Expande verticalmente */
+    }
+
+    table {
+      border-collapse: collapse; /* Remove espaços entre bordas das células */
+      width: 100%; /* Ocupa toda a largura possível */
+      max-width: 700px; /* Largura máxima da tabela */
+      background: #2d5339; /* Fundo escuro da tabela */
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4); /* Sombra ao redor */
+      border-radius: 8px; /* Bordas arredondadas */
+      overflow: hidden; /* Oculta partes arredondadas fora da área */
+    }
+
+    th, td {
+      padding: 1rem; /* Espaço interno */
+      text-align: left; /* Alinhamento à esquerda */
+      border-bottom: 1px solid #4a6d4e; /* Linha divisória entre linhas */
+    }
+
+    th {
+      background-color: #3a7a57; /* Cor de fundo dos cabeçalhos */
+      color: #ffffff; /* Cor do texto */
+      font-weight: bold; /* Negrito */
+    }
+
+    tr:hover {
+      background-color: #3e5c47; /* Cor de fundo ao passar o mouse sobre uma linha */
+    }
+
+    .highlight {
+      background-color: #38a169 !important; /* Cor de destaque em verde */
+      color: #ffffff; /* Cor do texto branco */
+    }
+
+    @media (max-width: 600px) {
+      #controls {
+        flex-direction: column; /* Empilha os botões verticalmente em telas pequenas */
+        align-items: stretch; /* Estica os itens para ocupar largura total */
+      }
+
+      .search-box input {
+        font-size: 1rem; /* Mantém tamanho legível em dispositivos móveis */
+      }
+
+      table, th, td {
+        font-size: 0.9rem; /* Reduz levemente o texto da tabela */
+      }
+
+      h1 {
+        font-size: 2rem; /* Reduz tamanho do título em telas pequenas */
+      }
+    }
+  </style> <!-- Fim dos estilos CSS -->
+  </head>
+
+<body>
+  <!-- Pop-up de jogo oculto inicialmente -->
+  <div id="gamePopup" class="popup hidden">
+    <div class="popup-content" id="popupContent">
+      <!-- Botão para fechar o pop-up, chama a função closePopup() -->
+      <button class="close-btn" onclick="closePopup()">✖</button>
+      <!-- Área para exibir a mensagem do pop-up -->
+      <div id="popupMessage"></div>
+      <!-- Extras do vencedor (ocultos inicialmente) -->
+      <div id="winnerExtras" class="hidden">
+        <!-- Campo de texto para o nome do vencedor -->
+        <input type="text" id="winnerName" placeholder="Seu nome..." />
+        <!-- Botão para exportar o resultado -->
+        <button onclick="exportResult()">Exportar Resultado</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Título principal do jogo -->
+  <h1>Spot by Specs</h1>
+
+  <!-- Botão de informação (ícone "i") -->
+  <button id="infoBtn" class="info-btn">
+    ⓘ
+  </button>
+  
+  <!-- Conteúdo que será exibido ao clicar no botão de informações -->
+  <div id="infoContent" class="info-content">
+    <!-- Informações da versão e do desenvolvedor -->
+    <p>Versão Beta 0.1.1</p>
+    <p>Desenvolvido por:</p>
+    <p>Igor Rodrigues da Silva</p>
+    <p>igor.rodrigues@intelbras.com.br</p>
+  </div>
+
+  <!-- Botão de configuração (ícone de engrenagem), com estilo específico -->
+  <button id="devBtn" class="info-btn" style="right: 40px;">⚙</button>
+
+  <!-- Campo para inserir uma senha de desenvolvedor -->
+  <div id="devContent" class="info-content">
+    <input type="text" id="devInput" placeholder="Senha dev..." />
+  </div>
+
+  <!-- Controles do jogo -->
+  <div id="controls" class="shadow">
+    <!-- Botão para palpitar, provavelmente para adivinhar algo no jogo -->
+    <button id="guessBtn">Palpitar</button>
+    <div class="search-box">
+      <!-- Campo de pesquisa para digitar o nome do produto -->
+      <input id="searchBox" type="text" placeholder="Digite o produto..." autocomplete="off">
+      <!-- Sugestões que serão exibidas enquanto o usuário digita -->
+      <div id="suggestions" class="suggestions"></div>
+    </div>
+    <!-- Botão para iniciar um novo jogo -->
+    <button id="newGameBtn">Novo Jogo</button>
+    <!-- Botão para abrir o manual em uma nova aba -->
+    <button id="manualBtn" onclick="window.open('manual.html','_blank')">Manual</button>
+  </div>
+
+  <!-- Tabela para exibir informações dos produtos -->
+  <table id="board">
+    <thead>
+      <tr>
+        <th>Produto</th>
+        <th>Tipo</th>
+        <th>Capac. Usuários</th>
+        <th>Autenticação</th>
+        <th>Comunicação</th>
+        <th>Grau IP</th>
+        <th>Frequência (MHz/KHz)</th>
+        <th>Rede</th>
+        <th>Fornecedor</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <!-- Inclusão do script html2canvas, que pode ser usado para capturar a tela ou elementos da página -->
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <!-- Inclusão do script externo com o código específico dos produtos -->
+  <script src="produtos.js"></script>
+  <script>
+// Carrega os sons usados no jogo
+const audioVitoria = new Audio('som/Vitoria.mp3');
+const audioDerrota = new Audio('som/perdeu.mp3');
+const audioPalpite = new Audio('som/pp.mp3');
+
+// Obtém referências para os elementos do DOM relacionados a informações e configurações
+const infoBtn = document.getElementById("infoBtn");
+const infoContent = document.getElementById("infoContent");
+
+// Exibe o modal de informações quando o mouse entra sobre o botão
+infoBtn.addEventListener("mouseenter", () => {
+  infoContent.classList.add("show");
+});
+
+// Oculta o modal de informações quando o mouse sai do botão
+infoBtn.addEventListener("mouseleave", () => {
+  infoContent.classList.remove("show");
+});
+
+// Obtém referências para os elementos do DOM relacionados ao painel de desenvolvedor
+const devBtn = document.getElementById("devBtn");
+const devContent = document.getElementById("devContent");
+const devInput = document.getElementById("devInput");
+
+// Exibe ou oculta o painel de desenvolvedor ao clicar no botão
+devBtn.addEventListener("click", () => {
+  devContent.classList.toggle("show");
+  if (devContent.classList.contains("show")) {
+    devInput.focus(); // Foca no campo de entrada quando o painel é mostrado
+  }
+});
+
+// Verifica a senha do desenvolvedor quando a tecla "Enter" é pressionada no campo de entrada
+devInput.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    if (devInput.value.trim().toLowerCase() === "eusoudev") {
+      alert(`Produto secreto: ${target.nome}`); // Exibe o nome do produto secreto se a senha for correta
+    } else {
+      alert("Código incorreto!"); // Exibe mensagem de erro caso a senha esteja errada
+    }
+    devInput.value = ""; // Limpa o campo de entrada
+    devContent.classList.remove("show"); // Fecha o painel de desenvolvedor
+  }
+});
+
+const MAX_TRIES = 10; // Número máximo de tentativas
+const MAX_SUG = 3; // Número máximo de sugestões
+let target, tries; // Declara as variáveis para o produto alvo e tentativas
+let gameOver = false; // Controle de final de jogo
+
+// Obtém referências para os elementos relacionados à caixa de pesquisa e sugestões
+const sb = document.getElementById("searchBox");
+const sugC = document.getElementById("suggestions");
+const tbod = document.querySelector("#board tbody");
+
+// Evento de input para mostrar as sugestões enquanto o usuário digita
+sb.addEventListener("input", () => showSug(sb.value));
+
+// Evento de pressionamento da tecla "Enter" para processar a tentativa de palpite
+sb.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    e.preventDefault(); // Impede o comportamento padrão do formulário
+    hideSug(); // Esconde as sugestões
+    play(); // Chama a função que realiza a tentativa de palpite
+  }
+});
+
+// Função para reiniciar o jogo
+function reset() {
+  tbod.innerHTML = ""; // Limpa a tabela
+  tries = 0; // Reseta o contador de tentativas
+  target = PRODUCTS[Math.floor(Math.random() * PRODUCTS.length)]; // Escolhe um novo produto aleatório
+  sb.value = ""; // Limpa o campo de pesquisa
+  hideSug(); // Esconde as sugestões
+  sb.disabled = false; // Habilita o campo de pesquisa
+  gameOver = false; // Reseta o status de fim de jogo
+  sb.focus(); // Foca no campo de pesquisa
+  document.getElementById("guessBtn").disabled = false; // Habilita o botão de palpite
+}
+
+// Função para obter sugestões baseadas no texto digitado
+function getSug(q) {
+  if (!q.trim()) return []; // Retorna um array vazio se a entrada estiver vazia
+  return PRODUCTS.filter(p => p.nome.toLowerCase().includes(q.toLowerCase())).slice(0, MAX_SUG);
+}
+
+// Função para exibir sugestões com base na pesquisa
+function showSug(q) {
+  const opts = getSug(q);
+  if (opts.length) {
+    sugC.style.display = "block"; // Exibe a lista de sugestões
+    sugC.innerHTML = opts.map(o => `<div class="suggestion-item">${o.nome}</div>`).join(""); // Preenche com as sugestões
+    document.querySelectorAll(".suggestion-item").forEach((el, i) => {
+      el.onclick = () => {
+        sb.value = opts[i].nome; // Preenche o campo de pesquisa com a sugestão clicada
+        hideSug(); // Esconde as sugestões
+        play(); // Chama a função para realizar o palpite
+      };
+    });
+  } else {
+    hideSug(); // Se não houver sugestões, esconde a lista
+  }
+}
+
+// Função para esconder a lista de sugestões
+function hideSug() {
+  sugC.style.display = "none"; // Esconde o contêiner das sugestões
+  sugC.innerHTML = ""; // Limpa o conteúdo das sugestões
+}
+
+// Função para comparar e avaliar as respostas
+const toArr = v => Array.isArray(v) ? v : [v];
+const evalList = (g, t) => g.length === t.length && g.every(v => t.includes(v)) ? "exact" : g.some(v => t.includes(v)) ? "partial" : "none";
+const evalIP = (g, t) => g === t ? "exact" : g.slice(0, 2) === t.slice(0, 2) ? "partial" : "none";
+const evalNum = (g, t) => g === t ? "exact" : g > t ? "down" : "up";
+const evalFreq = (g, t) => g === t ? "exact" : Math.abs(g - t) <= 10 ? "partial" : g > t ? "down" : "up";
+const evalText = (g, t) => g === t ? "exact" : g && t && g[0] === t[0] ? "partial" : "none";
+
+// Função que avalia uma tentativa em relação ao produto alvo
+function evaluate(g) {
+  return {
+    tipo: evalList(toArr(g.tipo), toArr(target.tipo)),
+    capacidade: evalNum(g.capacidade, target.capacidade),
+    auth: evalList(toArr(g.auth), toArr(target.auth)),
+    com: evalList(toArr(g.com), toArr(target.com)),
+    grauIP: evalIP(g.grauIP, target.grauIP),
+    freq: evalList(toArr(g.freq), toArr(target.freq)),
+    rede: evalList(toArr(g.rede), toArr(target.rede)),
+    fornecedor: evalText(g.fornecedor, target.fornecedor)
+  };
+}
+
+// Função para renderizar os resultados na tabela
+function render(g, r) {
+  const tr = document.createElement("tr");
+  tr.innerHTML = `
+    <td>${g.nome}</td>
+    <td class="${r.tipo}">${toArr(g.tipo).join(", ")}</td>
+    <td class="${r.capacidade}">${g.capacidade}</td>
+    <td class="${r.auth}">${toArr(g.auth).join(", ")}</td>
+    <td class="${r.com}">${toArr(g.com).join(", ")}</td>
+    <td class="${r.grauIP}">${g.grauIP}</td>
+    <td class="${r.freq}">${toArr(g.freq).join(", ")}</td>
+    <td class="${r.rede}">${toArr(g.rede).join(", ")}</td>
+    <td class="${r.fornecedor}">${g.fornecedor}</td>`;
+  
+  // Insere a nova linha no início da tabela
+  tbod.insertBefore(tr, tbod.firstChild);
+}
+
+// Função para verificar se o jogador venceu
+const win = r => Object.values(r).every(v => v === "exact");
+
+// Evento de clique no botão de palpite
+document.getElementById("guessBtn").addEventListener("click", () => {
+  if (!sb.value.trim()) return; // Verifica se o campo de pesquisa está vazio
+  const opts = getSug(sb.value); // Obtém sugestões baseadas no valor inserido
+  const guess = PRODUCTS.find(p => p.nome === sb.value) || opts[0]; // Tenta encontrar o produto baseado na pesquisa ou na sugestão
+  if (guess) evaluateAndRender(guess); // Avalia e renderiza o resultado
+  hideSug(); // Esconde as sugestões
+});
+
+// Evento de clique no botão "Novo Jogo"
+document.getElementById("newGameBtn").addEventListener("click", reset);
+
+// Função para avaliar e renderizar os resultados de um palpite
+function evaluateAndRender(guess) {
+  audioPalpite.play(); // Toca o som do palpite
+  if (tries >= MAX_TRIES || gameOver) return; // Se o número de tentativas for atingido ou o jogo já acabou, retorna
+
+  const res = evaluate(guess); // Avalia o palpite
+  render(guess, res); // Exibe o resultado na tabela
+  tries++; // Incrementa o número de tentativas
+  sb.value = ""; // Limpa o campo de pesquisa
+
+  // Se o jogador acertou
+  if (win(res)) {
+    audioVitoria.play(); // Toca o som de vitória
+    emojiRain(["🎉", "🥳", "🏆", "🎊"]); // Exibe emojis comemorativos
+    showPopup(true, tries, target.nome); // Exibe o pop-up de vitória
+    sb.disabled = true; // Desabilita o campo de pesquisa
+    document.getElementById("guessBtn").disabled = true; // Desabilita o botão de palpite
+  } else if (tries === MAX_TRIES) {
+    audioDerrota.play(); // Toca o som de derrota
+    emojiRain(["💀", "😢", "☠️", "👎"]); // Exibe emojis de derrota
+    showPopup(false, tries, target.nome); // Exibe o pop-up de derrota
+    sb.disabled = true; // Desabilita o campo de pesquisa
+    document.getElementById("guessBtn").disabled = true; // Desabilita o botão de palpite
+  }
+}
+
+// Função para exibir o pop-up de vitória ou derrota
+function showPopup(won, tries, product) {
+  const popup = document.getElementById("gamePopup");
+  const message = document.getElementById("popupMessage");
+  const winnerExtras = document.getElementById("winnerExtras");
+
+  if (won) {
+    message.innerHTML = `🎉 <strong>Você ganhou!</strong><br>O produto era <strong>${product}</strong><br>Você acertou em <strong>${tries}</strong> tentativa(s)!`;
+    winnerExtras.classList.remove("hidden"); // Mostra o campo de nome e exportação
+  } else {
+    message.innerHTML = `💀 <strong>Você perdeu!</strong><br>O produto era <strong>${product}</strong>`;
+    winnerExtras.classList.add("hidden"); // Esconde o campo de nome e exportação
+  }
+
+  popup.classList.remove("hidden"); // Exibe o pop-up
+}
+
+// Função para fechar o pop-up
+function closePopup() {
+  document.getElementById("gamePopup").classList.add("hidden"); // Adiciona a classe "hidden" para ocultar o pop-up
+}
+
+// Função para exportar o resultado do jogo
+function exportResult() {
+  const name = document.getElementById("winnerName").value.trim() || "Jogador"; // Obtém o nome do jogador
+  const produto = target.nome;
+  const tentativas = tries;
+
+  const canvas = document.createElement("canvas");
+  const ctx = canvas.getContext("2d");
+
+  canvas.width = 600;
+  canvas.height = 300;
+
+  // Fundo
+  ctx.fillStyle = "#1a3a2a";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  // Título
+  ctx.fillStyle = "#a0e0a0";
+  ctx.font = "bold 24px Arial";
+  ctx.fillText(`Parabéns ${name}, você ganhou!`, 40, 60);
+
+  // Produto
+  ctx.fillStyle = "#ffffff";
+  ctx.font = "20px Arial";
+  ctx.fillText(`O produto era: ${produto}`, 40, 120);
+
+  // Tentativas
+  ctx.fillText(`Você acertou em ${tentativas} tentativa(s)!`, 40, 160);
+
+  // Emoji de comemoração
+  ctx.font = "32px Arial";
+  ctx.fillText("🎉🎉🎉", 40, 220);
+
+  // Baixar o arquivo de imagem
+  const link = document.createElement("a");
+  link.download = `resultado-${name}.png`;
+  link.href = canvas.toDataURL();
+  link.click();
+}
+
+// Função para simular o clique no botão de palpite
+function play() {
+  document.getElementById("guessBtn").click();
+}
+
+// Função para criar uma chuva de emojis de celebração
+function emojiRain(emojis) {
+  for (let i = 0; i < 30; i++) {
+    const emoji = document.createElement("div");
+    emoji.classList.add("emoji");
+    emoji.style.left = `${Math.random() * 100}vw`;
+    emoji.style.animationDuration = `${2 + Math.random() * 2}s`;
+    emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    document.body.appendChild(emoji);
+
+    setTimeout(() => {
+      emoji.remove(); // Remove o emoji após o tempo de animação
+    }, 4000);
+  }
+}
+
+// Inicializa o jogo
+reset();
+sb.disabled = false;
+document.getElementById("guessBtn").disabled = false;
+</script>
+</body>
+</html>
 
