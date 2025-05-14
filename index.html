@@ -339,7 +339,7 @@
     ⓘ
   </button>
   <div id="infoContent" class="info-content">
-    <p>Versão Beta 0.1.1</p>
+    <p>Versão Beta 0.3.0</p>
     <p>Desenvolvido por:</p>
     <p>Igor Rodrigues da Silva</p>
     <p>igor.rodrigues@intelbras.com.br</p>
@@ -378,6 +378,7 @@
   </table>
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
   <script src="produtos.js"></script>
+  <script src="animaçoes.js"></script>
   <script>
 const audioVitoria = new Audio('som/Vitoria.mp3');
 const audioDerrota = new Audio('som/perdeu.mp3');
@@ -403,18 +404,6 @@ devBtn.addEventListener("click", () => {
   devContent.classList.toggle("show");
   if (devContent.classList.contains("show")) {
     devInput.focus();
-  }
-});
-
-devInput.addEventListener("keydown", (e) => {
-  if (e.key === "Enter") {
-    if (devInput.value.trim().toLowerCase() === "eusoudev") {
-      alert(`Produto secreto: ${target.nome}`);
-    } else {
-      alert("Código incorreto!");
-    }
-    devInput.value = "";
-    devContent.classList.remove("show");
   }
 });
 
