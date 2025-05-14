@@ -1,0 +1,106 @@
+nome;tipo;capacidade de usuarios;autenticaçao;comunicaçao;grau ip;frequencia;rede;Fornecedor
+SS 1530 MF W;controlador;3000;Face, Senha, Tag, QRcode;RS 485, Wiegand;N/A;13.56;Ethernet, wi-fi;Dahua
+SS 1540 MF W;controlador;3000;Face, Senha, Tag, QRcode, Biometria;RS 485, Wiegand;N/A;13.56;Ethernet, wi-fi;Dahua
+SS 3420 MF Bio;controlador;30000;Tag, Biometria;RS 485, Wiegand;IP65;13.56;Ethernet;Dahua
+SS 3420 Bio;controlador;30000;Tag, Biometria;RS 485, Wiegand;IP65;125;Ethernet;Dahua
+SS 3430 MF Bio;controlador;30000;Tag, Biometria, Senha;RS 485, Wiegand;N/A;13.56;Ethernet, wi-fi;Dahua
+SS 3430 Bio;controlador;30000;Tag, Biometria, Senha;RS 485, Wiegand;N/A;125;Ethernet, wi-fi;Dahua
+SS 3530 MF Face;controlador;1500;Face, Senha, Tag, QRcode;RS 485;N/A;13.56;Ethernet;Dahua
+SS 3530 MF Face W;controlador;1500;Face, Senha, Tag, QRcode;RS 485;N/A;13.56;Ethernet, wi-fi;Dahua
+SS 3540 MF Face EX;controlador;6000;Face, Senha, Tag, QRcode;RS 485, Wiegand;IP65;13.56;Ethernet;Dahua
+SS 3540 MF Face Bio EX;controlador;6000;Face, Senha, Tag, QRcode, Biometria;RS 485, Wiegand;IP55;13.56;Ethernet;Dahua
+SS 3532 MF W;controlador;6000;Face, Senha, Tag, QRcode;RS 485, Wiegand;IP55;13.56;POE, Ethernet, wi-fi;Dahua
+SS 3542 MF W;controlador;6000;Face, Senha, Tag, QRcode, Biometria;RS 485, Wiegand;IP55;13.56;POE, Ethernet, wi-fi;Dahua
+SS 3532 MF;controlador;10000;Face, Senha, Tag, QRcode;RS 485, Wiegand;IP55;13.56;Ethernet;Dahua
+SS 3542 MF;controlador;10000;Face, Senha, Tag, QRcode, Biometria;RS 485, Wiegand;IP55;13.56;Ethernet;Dahua
+SS 5530 MF Face;controlador;50000;Face, Senha, Tag, QRcode;RS 485, Wiegand;IP64;13.56;Ethernet;Dahua
+SS 5530 MF Face Lite;controlador;20000;Face, Senha, Tag, QRcode;RS 485, Wiegand;IP64;13.56;Ethernet;Dahua
+SS 5531 MF W;controlador;20000;Face, Senha, Tag, QRcode;RS 485, Wiegand;N/A;13.56;Ethernet, wi-fi;Dahua
+SS 5532 MF W;controlador;20000;Face, Senha, Tag, QRcode;RS 485, Wiegand;IP55;13.56;Ethernet, wi-fi;Dahua
+SS 5541 MF W;controlador;20000;Face, Senha, Tag, QRcode, Biometria;RS 485, Wiegand;N/A;13.56;Ethernet, wi-fi;Dahua
+SS 5542 MF W;controlador;20000;Face, Senha, Tag, QRcode, Biometria;RS 485, Wiegand;IP55;13.56;Ethernet, wi-fi;Dahua
+SS 120;controlador;5000;Tag;Wiegand;N/A;125;Ethernet;ZKteco
+SS 210;controlador;30000;Tag, Senha;RS 485, Wiegand, RS232;N/A;125;Ethernet;ZKteco
+SS 230;controlador;30000;Tag, Senha;RS 485, Wiegand, RS232;N/A;125;Ethernet;ZKteco
+SS 310;controlador;200;Tag, Biometria;RS 485, Wiegand, RS232;N/A;125;Ethernet;ZKteco
+SS 311 E;controlador;10000;Tag, Biometria;RS 485, Wiegand;IP66;125;Ethernet;ZKteco
+SS 311 MF;controlador;10000;Tag, Biometria;RS 485, Wiegand;IP66;13.56;Ethernet;ZKteco
+SS 320;controlador;30000;Tag, Biometria;RS 485, Wiegand;N/A;125;Ethernet;ZKteco
+SS 410;controlador;30000;Tag, Biometria, Senha;RS 485, Wiegand, RS232;N/A;125;Ethernet;ZKteco
+SS 411 E;controlador;10000;Tag, Biometria, Senha;RS 485, Wiegand;N/A;125;Ethernet;ZKteco
+SS 420;controlador;5000;Tag, Biometria, Senha;RS 485, Wiegand;N/A;125;Ethernet;ZKteco
+SS 610;controlador;10000;Tag, Biometria, Senha;RS 485, Wiegand;N/A;125;Ethernet;ZKteco
+SS 710;controlador;5000;Face, Senha, Tag, Biometria;RS 485, Wiegand;N/A;125;Ethernet;ZKteco
+SA 200;controlador;1000;Tag, Senha;N/A;N/A;125;N/A;N/A
+SA 202;controlador;1000;Tag, Senha;N/A;N/A;125;N/A;Intelbras
+SA 202 Automatiza;controlador;1000;Tag, Senha;N/A;N/A;125;N/A;N/A
+SA 203 MF;controlador;1000;Tag, Senha;Wiegand;N/A;13.56;N/A;Intelbras
+SA 210;controlador;1000;Tag, Senha;N/A;IP65;125;N/A;N/A
+SA 211 MF;controlador;1000;Tag, Senha;Wiegand;IP66;13.56;N/A;Intelbras
+SA 310;controlador;500;Tag, Senha, Biometria;N/A;N/A;125;N/A;N/A
+Defense Lite;software;5000;senha;IP;N/A;N/A;Todas;Intelbras
+InControl;software;20000;N/A;IP;N/A;N/A;LAN;Intelbras
+SoapAdmin;software;N/A;N/A;IP;N/A;N/A;LAN;ZKteco
+SoapAdmin 2.4;software;N/A;N/A;IP;N/A;N/A;N/A;ZKteco
+SGA 1000 IP;software;4000;N/A;IP;N/A;N/A;LAN;Intelbras
+SGA 1000;software;4000;N/A;USB;N/A;N/A;N/A;Intelbras
+CT 500 2pb;controlador;30000;N/A;RS 485, Wiegand;N/A;N/A;Ethernet;ZKteco
+CT 3000 2pb;controlador;100000;N/A;RS 485, Wiegand;N/A;N/A;Ethernet;Dahua
+MIP 1000 IP;controlador;4000;N/A;RS 485;N/A;13.56, 125;Ethernet;Intelbras
+MIP 1000;controlador;4000;N/A;RS 485;N/A;13.56, 125;N/A;Intelbras
+;;;;;;;;
+;;;;;;;;
+;;;;;;;;
+;;;;;;;;
+;;;;;;;;
+;;;;;;;;
+;;;;;;;;
+;;;;;;;;
+;;;;;;;;
+;;;;;;;;
+;;;;;;;;
+;;;;;;;;
+;;;;;;;;
+;;;;;;;;
+;;;;;;;;
+;;;;;;;;
+;;;;;;;;
+;;;;;;;;
+;;;;;;;;
+;;;;;;;;
+;;;;;;;;
+;;;;;;;;
+;;;;;;;;
+;;;;;;;;
+;;;;;;;;
+;;;;;;;;
+;;;;;;;;
+;;;;;;;;
+;;;;;;;;
+;;;;;;;;
+;;;;;;;;
+;;;;;;;;
+;;;;;;;;
+;;;;;;;;
+;;;;;;;;
+;;;;;;;;
+;;;;;;;;
+;;;;;;;;
+;;;;;;;;
+;;;;;;;;
+;;;;;;;;
+;;;;;;;;
+;;;;;;;;
+;;;;;;;;
+;;;;;;;;
+;;;;;;;;
+;;;;;;;;
+;;;;;;;;
+;;;;;;;;
+;;;;;;;;
+;;;;;;;;
+;;;;;;;;
+;;;;;;;;
+;;;;;;;;
+;;;;;;;;
+;;;;;;;;
