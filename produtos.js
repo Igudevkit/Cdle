@@ -95,7 +95,7 @@ const PRODUCTS = [
         com: ["RS 485", "Wiegand"],
         grauIP: "IP65",
         freq: 13.56,
-        rede: ["Ethernet"],
+        rede: ["Ethernet", "wi-fi"],
         fornecedor: "Dahua"
     },
     {
@@ -106,7 +106,7 @@ const PRODUCTS = [
         com: ["RS 485", "Wiegand"],
         grauIP: "IP55",
         freq: 13.56,
-        rede: ["Ethernet"],
+        rede: ["Ethernet", "wi-fi"],
         fornecedor: "Dahua"
     },
     {
@@ -360,7 +360,7 @@ const PRODUCTS = [
         grauIP: "N/A",
         freq: 125,
         rede: ["N/A"],
-        fornecedor: "N/A"
+        fornecedor: "ZKteco"
     },
     {
         nome: "SA 202",
@@ -382,7 +382,7 @@ const PRODUCTS = [
         grauIP: "N/A",
         freq: 125,
         rede: ["N/A"],
-        fornecedor: "N/A"
+        fornecedor: "ZKteco"
     },
     {
         nome: "SA 203 MF",
@@ -404,7 +404,7 @@ com: ["N/A"],
 grauIP: "IP65",
 freq: 125,
 rede: ["N/A"],
-fornecedor: "N/A"
+fornecedor: "ZKteco"
 },
 {
 nome: "SA 211 MF",
@@ -426,13 +426,13 @@ com: ["N/A"],
 grauIP: "N/A",
 freq: 125,
 rede: ["N/A"],
-fornecedor: "N/A"
+fornecedor: "ZKteco"
 },
 {
 nome: "Defense Lite",
 tipo: "software",
 capacidade: 5000,
-auth: ["senha"],
+auth: ["N/A"],
 com: ["IP"],
 grauIP: "N/A",
 freq: "N/A",
