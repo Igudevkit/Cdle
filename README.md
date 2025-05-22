@@ -3,17 +3,20 @@
 
 **Spot by Specs CA** é um jogo educacional desenvolvido para o suporte técnico da CA, com o objetivo de auxiliar no treinamento e capacitação de colaboradores. O jogo simula situações do dia a dia do suporte técnico, promovendo o aprendizado de forma interativa e lúdica.
 
-## 🕹️ Demonstração
+## Deploy
 
-[Inserir aqui o link para o jogo hospedado, se disponível.]
+[https://igudevkit.github.io/Spot-by-specs-Ca/]
 
 ## 📂 Estrutura do Projeto
 
 - `index.html`: Página principal do jogo.
 - `manual.html`: Manual do usuário com instruções e informações adicionais.
 - `produtos.js`: Script que contém os dados dos produtos utilizados no jogo.
+- `animaçoes.js`: Script de cryptografia do codigo de debug.
 - `img/`: Diretório com as imagens utilizadas no jogo.
 - `som/`: Diretório com os arquivos de áudio do jogo.
+- `documentação/`: Documentação do jogo em sua Versão Beta.
+
 
 ## 🚀 Tecnologias Utilizadas
 
@@ -36,11 +39,3 @@
    ```
 
 3. Abra o arquivo `index.html` em seu navegador preferido para iniciar o jogo.
-
-## 🛠️ Contribuindo
-
-Contribuições são bem-vindas! Sinta-se à vontade para abrir issues ou enviar pull requests com melhorias, correções de bugs ou novas funcionalidades.
-
-## 📄 Licença
-
-[Inserir aqui o tipo de licença, se aplicável.]
