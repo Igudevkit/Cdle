@@ -11,7 +11,6 @@
 
 - `index.html`: Página principal do jogo.
 - `manual.html`: Manual do usuário com instruções e informações adicionais.
-- `animaçoes.js`: Script responsável pelas animações do jogo.
 - `produtos.js`: Script que contém os dados dos produtos utilizados no jogo.
 - `img/`: Diretório com as imagens utilizadas no jogo.
 - `som/`: Diretório com os arquivos de áudio do jogo.
