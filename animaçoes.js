@@ -1,4 +1,4 @@
-const parts = ["ZXV", "zb3", "VkZ", "XY="];
+const parts = ["aWd", "vcm", "Rld", "g=="];
 const secretCode = atob(parts.join(""));
 
 devInput.addEventListener("keydown", (e) => {
