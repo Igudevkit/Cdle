@@ -189,7 +189,7 @@ const PRODUCTS = [
     {
         nome: "SS 5532 MF W",
         tipo: "controlador",
-        capacidade: 20000,
+        capacidade: 50000,
         auth: ["Face", "Senha", "Tag", "QRcode"],
         com: ["RS 485", "Wiegand"],
         grauIP: "IP55",
@@ -211,7 +211,7 @@ const PRODUCTS = [
     {
         nome: "SS 5542 MF W",
         tipo: "controlador",
-        capacidade: 20000,
+        capacidade: 50000,
         auth: ["Face", "Senha", "Tag", "QRcode", "Biometria"],
         com: ["RS 485", "Wiegand"],
         grauIP: "IP55",
